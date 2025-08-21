@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="pl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Responsive Navbar</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header>
+      <nav class="navbar">
+        <div class="logo">
+          <a href="#">Assemble</a>
+        </div>
+        <div class="nav-links" id="nav-links">
+          <a href="#xd">O nas</a>
+          <a href="#about">Program</a>
+          <a href="#">FAQ</a>
+          <a href="#">Kontakt</a>
+        </div>
+        <div class="s">
+          <div class="cta">
+            <a href="#">kontakt →</a>
+          </div>
+          <div class="hma">
+            <div class="hamburger" id="hamburger">
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <div class="x" id="xd">
+      <div class="main-content">
+        <div class="main-content__logo">
+          <h1>Witamy na naszej stronie!</h1>
+          <p>To jest przykładowa strona z responsywnym paskiem nawigacyjnym.</p>
+          <div class="main-content__cta">
+            <a class="about__button" href="#about">Zapisz się za darmo</a>
+          </div>
+        </div>
+        <div class="main-content__image">
+          <img src="raz.png" alt="Placeholder Image" />
+        </div>
+      </div>
+
+      <section id="about" class="about">
+        <div class="about__container">
+          <div class="about__grid">
+            <article class="about__card1" data-ao>
+              <div class="about__icon" aria-hidden="true">👥</div>
+              <h3 class="about__card-title">Learn from others</h3>
+              <p class="about__card-text">
+                Słuchaj ekspertów i rówieśników, zdobywaj świeże perspektywy i
+                sprawdzaj, jak inni rozwiązują podobne wyzwania.
+              </p>
+            </article>
+
+            <article class="about__card" data-ao>
+              <div class="about__icon" aria-hidden="true">🤝</div>
+              <h3 class="about__card-title">Connect</h3>
+              <p class="about__card-text">
+                Poznawaj osoby o podobnych zainteresowaniach i buduj relacje,
+                które zaprocentują w przyszłości.
+              </p>
+            </article>
+
+            <article class="about__card" data-ao>
+              <div class="about__icon" aria-hidden="true">🌠</div>
+              <h3 class="about__card-title">Grow</h3>
+              <p class="about__card-text">
+                Zdobywaj nowe umiejętności, wdrażaj strategie i rozwijaj się
+                jako twórca oraz profesjonalista.
+              </p>
+            </article>
+
+            <article class="about__card1" data-ao>
+              <div class="about__icon" aria-hidden="true">💡</div>
+              <h3 class="about__card-title">Get inspired</h3>
+              <p class="about__card-text">
+                Historie i pomysły, które rozpalają kreatywność. Wyjdź z nową
+                energią i motywacją do działania.
+              </p>
+            </article>
+          </div>
+
+          <footer class="about__cta" id="xddd">
+            <a class="about__button" href="#kontakt">Zapisz się za darmo</a>
+          </footer>
+        </div>
+      </section>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
