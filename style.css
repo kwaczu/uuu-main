@@ -437,6 +437,18 @@ header {
     border-color 0.25s ease;
   will-change: transform;
 }
+
+/* --- WERSJA NA TELEFON --- */
+@media (max-width: 768px) {
+  .block {
+    position: static; /* często lepsze niż sticky na tel. */
+    width: 100%; /* pełna szerokość */
+    margin: 10px 0; /* zmniejszony margines boczny */
+    padding: 15px; /* mniejszy padding */
+    top: auto;
+  }
+}
+
 .fds {
   height: 10000px;
   width: 100%;
