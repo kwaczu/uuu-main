@@ -76,3 +76,27 @@ document.addEventListener("DOMContentLoaded", function () {
   // Wywołanie od razu po załadowaniu strony
   scrollSpy();
 });
+document.querySelectorAll(".faq").forEach((faq) => {
+  const header = faq.querySelector(".faq-header");
+  const content = faq.querySelector(".faq-content");
+  const btn = faq.querySelector(".faq-btn");
+
+  header.addEventListener("click", () => {
+    const isOpen = faq.classList.contains("open");
+    faq.classList.toggle("open");
+
+    if (isOpen) {
+      content.style.maxHeight = content.scrollHeight + "px"; // start height
+      requestAnimationFrame(() => {
+        content.style.maxHeight = "0"; // animacja do 0
+      });
+      btn.classList.remove("rotate");
+    } else {
+      content.style.maxHeight = "0"; // start height
+      requestAnimationFrame(() => {
+        content.style.maxHeight = content.scrollHeight + "px"; // animacja do pełnej wysokości
+      });
+      btn.classList.add("rotate");
+    }
+  });
+});
