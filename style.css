@@ -100,7 +100,7 @@ header {
     padding: 15px 20px; /* większe kliknięcie */
     box-sizing: border-box;
     text-align: center;
-    color: #000000;
+    color: #fff;
   }
 
   .nav-links.active {
@@ -388,4 +388,59 @@ header {
   .main-content__image {
     margin-top: 30px;
   }
+}
+.marquee {
+  overflow: hidden;
+  width: 100%;
+}
+
+.marquee-content {
+  display: flex;
+  animation: scroll 10s linear infinite alternate;
+}
+
+.marquee-content img {
+  height: 60px; /* wysokość ikon */
+  margin: 30px;
+}
+
+@keyframes scroll {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(0%);
+  }
+}
+.main-content2 {
+  display: flex;
+  height: 800px;
+}
+
+.block {
+  display: flex;
+  align-self: flex-start;
+  flex-wrap: wrap;
+  justify-content: center;
+  position: sticky;
+  top: 100px;
+  margin: 10px;
+
+  background: linear-gradient(180deg, #141418, #0f0f12);
+  border: 1px solid var(--about-border);
+  border-radius: var(--about-radius);
+  padding: 20px;
+  width: 40%;
+
+  gap: 10px;
+  transition: transform 0.25s ease, box-shadow 0.25s ease,
+    border-color 0.25s ease;
+  will-change: transform;
+}
+.fds {
+  height: 10000px;
+  width: 100%;
+  background-color: #f0f0f0;
+  border-radius: 10px;
+  margin: 10px;
 }
