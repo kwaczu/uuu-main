@@ -100,3 +100,115 @@ document.querySelectorAll(".faq").forEach((faq) => {
     }
   });
 });
+(function () {
+  const tech = document.querySelector(".tech");
+  const marquee = tech?.querySelector(".marquee-content");
+  if (!tech || !marquee) return;
+
+  let scrollX = 0;
+  let isLocking = false;
+  let isMarqueeDone = false;
+  let isAutoScrolling = false;
+  const tolerance = 100; // szerokość okna blokady w px
+
+  function getScrollLength() {
+    return marquee.scrollWidth - tech.clientWidth;
+  }
+
+  function lockScroll() {
+    if (!isLocking) {
+      document.body.style.overflow = "hidden";
+      window.addEventListener("wheel", onWheel, { passive: false });
+      window.addEventListener("keydown", onKeyDown, { passive: false });
+      isLocking = true;
+      console.log("Scroll pionowy zablokowany!");
+    }
+  }
+
+  function unlockScroll() {
+    if (isLocking) {
+      document.body.style.overflow = "";
+      window.removeEventListener("wheel", onWheel, { passive: false });
+      window.removeEventListener("keydown", onKeyDown, { passive: false });
+      isLocking = false;
+    }
+  }
+
+  function onWheel(e) {
+    if (!isLocking) return;
+    const delta = e.deltaY || e.deltaX;
+    const maxScroll = getScrollLength();
+
+    scrollX += delta;
+    scrollX = Math.max(0, Math.min(scrollX, maxScroll));
+    marquee.style.transform = `translateX(-${scrollX}px)`;
+
+    if (scrollX >= maxScroll && delta > 0) {
+      isMarqueeDone = true;
+      unlockScroll();
+      window.scrollTo({ top: window.scrollY + 2, behavior: "auto" });
+    } else if (scrollX < maxScroll) {
+      isMarqueeDone = false;
+    }
+
+    if (scrollX <= 0 && delta < 0) {
+      unlockScroll();
+      window.scrollTo({ top: window.scrollY - 2, behavior: "auto" });
+    }
+
+    e.preventDefault();
+  }
+
+  function onKeyDown(e) {
+    if (e.key === "ArrowDown" || e.key === "ArrowRight") {
+      onWheel({ deltaY: 40 });
+      e.preventDefault();
+    }
+    if (e.key === "ArrowUp" || e.key === "ArrowLeft") {
+      onWheel({ deltaY: -40 });
+      e.preventDefault();
+    }
+  }
+
+  function onScroll() {
+    if (isAutoScrolling) return;
+    const rect = tech.getBoundingClientRect();
+    const windowHeight = window.innerHeight;
+
+    // BLOKUJEMY scroll GDY DÓŁ .tech JEST W ZAKRESIE tolerance px OD DOŁU OKNA
+    if (
+      rect.bottom <= windowHeight + tolerance &&
+      rect.bottom >= windowHeight - tolerance &&
+      !isMarqueeDone
+    ) {
+      isAutoScrolling = true;
+      window.scrollTo({
+        top: window.scrollY + rect.bottom - windowHeight,
+        behavior: "auto",
+      });
+      setTimeout(() => {
+        lockScroll();
+        isAutoScrolling = false;
+      }, 10);
+    } else {
+      unlockScroll();
+      if (rect.top > windowHeight) {
+        scrollX = 0;
+        marquee.style.transform = `translateX(0)`;
+        isMarqueeDone = false;
+      }
+      if (rect.bottom < 0) {
+        scrollX = getScrollLength();
+        marquee.style.transform = `translateX(-${scrollX}px)`;
+      }
+    }
+  }
+
+  window.addEventListener("scroll", onScroll);
+  window.addEventListener("resize", () => {
+    scrollX = Math.max(0, Math.min(scrollX, getScrollLength()));
+    marquee.style.transform = `translateX(-${scrollX}px)`;
+  });
+
+  marquee.style.transform = "translateX(0)";
+})();

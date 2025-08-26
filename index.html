@@ -4,9 +4,11 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Responsive Navbar</title>
+    <!-- Łączenie z plikiem CSS -->
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
+    <!-- Główny nagłówek i nawigacja -->
     <header>
       <nav class="navbar">
         <div class="logo">
@@ -16,13 +18,14 @@
           <a href="#xd">O nas</a>
           <a href="#about">Program</a>
           <a href="#faq">FAQ</a>
-          <a href="#">Kontakt</a>
+          <a href="#kol">Kontakt</a>
         </div>
         <div class="s">
           <div class="cta">
             <a href="#">kontakt →</a>
           </div>
           <div class="hma">
+            <!-- Hamburger menu dla wersji mobilnej -->
             <div class="hamburger" id="hamburger">
               <span></span>
               <span></span>
@@ -32,6 +35,7 @@
       </nav>
     </header>
 
+    <!-- Sekcja powitalna -->
     <div class="x" id="xd">
       <div class="main-content">
         <div class="main-content__logo">
@@ -44,13 +48,16 @@
           </div>
         </div>
         <div class="main-content__image">
+          <!-- Obrazek powitalny -->
           <img src="raz.png" alt="Placeholder Image" />
         </div>
       </div>
 
+      <!-- Sekcja "O nas" i program -->
       <section id="about" class="about">
         <div class="about__container">
           <div class="about__grid">
+            <!-- Karty z informacjami o zaletach -->
             <article class="about__card1" data-ao>
               <div class="about__icon" aria-hidden="true">👥</div>
               <h3 class="about__card-title">Learn from others</h3>
@@ -87,27 +94,35 @@
               </p>
             </article>
           </div>
+          <!-- Pasek z technologiami -->
           <div class="tech">
+            <h1>Silniki mojej pracy</h1>
             <div class="marquee">
               <div class="marquee-content">
-                <div class="marquee-group">
-                  <img src="1.png" alt="HTML" />
-
-                  <img src="3.png" alt="CSS" />
-                  <img src="2.png" alt="JavaScript" />
-                  <img src="1.png" alt="React" />
-                  <img src="1.png" alt="Node.js" />
-                </div>
-                <div class="marquee-group">
-                  <img src="1.png" alt="HTML" />
-                  <img src="css.png" alt="CSS" />
-                  <img src="js.png" alt="JavaScript" />
-                  <img src="react.png" alt="React" />
-                  <img src="node.png" alt="Node.js" />
-                </div>
+                <img src="1.png" alt="HTML" />
+                <img src="3.png" alt="CSS" />
+                <img src="2.png" alt="JavaScript" />
+                <img src="1.png" alt="React" />
+                <img src="1.png" alt="Node.js" />
+                <img src="1.png" alt="HTML" />
+                <img src="3.png" alt="CSS" />
+                <img src="2.png" alt="JavaScript" />
+                <img src="1.png" alt="React" />
+                <img src="1.png" alt="Node.js" />
+                <img src="1.png" alt="HTML" />
+                <img src="1.png" alt="HTML" />
+                <img src="3.png" alt="CSS" />
+                <img src="2.png" alt="JavaScript" />
+                <img src="1.png" alt="React" />
+                <img src="1.png" alt="Node.js" />
+                <img src="css.png" alt="CSS" />
+                <img src="js.png" alt="JavaScript" />
+                <img src="react.png" alt="React" />
+                <img src="node.png" alt="Node.js" />
               </div>
             </div>
           </div>
+          <!-- Sekcja FAQ -->
           <section class="ff" id="faq">
             <div class="main-content2">
               <div class="block">
@@ -127,11 +142,13 @@
               </div>
 
               <div class="FAQ">
+                <!-- Nagłówek sekcji FAQ -->
                 <div class="FAQ__header">
                   <h1>FAQ</h1>
                 </div>
                 <div class="FAQ__title">
                   <div class="faq-container">
+                    <!-- Pojedyncze pytania i odpowiedzi FAQ -->
                     <div class="faq">
                       <div class="faq-header">
                         <span>Tytuł 2</span>
@@ -185,14 +202,48 @@
               </div>
             </div>
           </section>
-          <footer class="about__cta" id="xddd">
+          <!-- Stopka z przyciskiem CTA -->
+          <footer class="about__cta" id="">
             <a class="about__button" href="#kontakt">Zapisz się za darmo</a>
           </footer>
         </div>
+        <div class="form" id="kol">
+          <h1 id="kontakt">Skontaktuj się z nami</h1>
+          <form action="#">
+            <input type="text" placeholder="Imię i nazwisko" required />
+            <input type="email" placeholder="Email" required />
+            <textarea
+              name="message"
+              id=""
+              cols="30"
+              rows="10"
+              placeholder="Twoja wiadomość"
+              required
+            ></textarea>
+            <button type="submit">Wyślij</button>
+          </form>
+        </div>
+        <div class="footer">
+          <h1>novum</h1>
+          <div class="links">
+            <div class="nav-links1" id="nav-lins">
+              <a href="#xd">O nas</a>
+              <a href="#about">Program</a>
+              <a href="#faq">FAQ</a>
+              <a href="#">Kontakt</a>
+            </div>
+          </div>
+          <div class="social_media">
+            <a href="#">Facebook</a>
+            <a href="#">Twitter</a>
+            <a href="#">Instagram</a>
+          </div>
+        </div>
       </section>
     </div>
-    <div class="fds">fvv</div>
-
+    <!-- Dodatkowy element na dole strony -->
+    <h1>ggg</h1>
+    <!-- Skrypt JavaScript -->
     <script src="script.js"></script>
   </body>
 </html>
