@@ -1,209 +1,157 @@
 <!DOCTYPE html>
 <html lang="pl">
-<head>
-  <meta charset="UTF-8">
-  <title>Galeria blokuje scroll przy dolnej krawędzi</title>
-  <style>
-    body { margin: 0; background: #f4f4f4; }
-    .spacer { height: 100vh; background: #ddd; display: flex; align-items: center; justify-content: center; font-size: 2em; }
-    .gallery {
-      width: 100vw;
-      height: 300px; /* dowolna wysokość */
-      background: #222;
-      overflow: hidden;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      position: relative;
-    }
-    .gallery-track {
-      display: flex;
-      transition: transform 0.2s cubic-bezier(.4,0,.2,1);
-      will-change: transform;
-    }
-    .gallery-track img {
-      height: 220px;
-      margin: 0 20px;
-      border-radius: 10px;
-      box-shadow: 0 2px 8px #0008;
-      background: #fff;
-      user-select: none;
-      pointer-events: none;
-    }
-    .form {
-      position: relative;
-      overflow: visible;
-      z-index: 1;
-    }
-
-    /* Animowany pasek dookoła diva */
-    .form::before {
-      content: "";
-      position: absolute;
-      inset: -3px; /* grubość paska */
-      border-radius: 18px;
-      padding: 0;
-      background: conic-gradient(
-        #22d3ee 0% 25%,
-        #60a5fa 25% 50%,
-        #a78bfa 50% 75%,
-        #22d3ee 75% 100%
-      );
-      z-index: 2;
-      pointer-events: none;
-      animation: border-spin 2s linear infinite;
-      /* Pasek widoczny tylko na obwodzie */
-      -webkit-mask:
-        linear-gradient(#fff 0 0) content-box, 
-        linear-gradient(#fff 0 0);
-      -webkit-mask-composite: xor;
-      mask-composite: exclude;
-    }
-
-    @keyframes border-spin {
-      100% {
-        transform: rotate(1turn);
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Generator Projektów z Obrazkami Lokalnie</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        padding: 20px;
       }
-    }
-  </style>
-</head>
-<body>
-  <div class="spacer">Scrolluj w dół</div>
-  <div class="gallery">
-    <div class="gallery-track">
-      <img src="https://picsum.photos/id/1015/300/220" alt="">
-      <img src="https://picsum.photos/id/1016/300/220" alt="">
-      <img src="https://picsum.photos/id/1018/300/220" alt="">
-      <img src="https://picsum.photos/id/1020/300/220" alt="">
-      <img src="https://picsum.photos/id/1024/300/220" alt="">
-      <img src="https://picsum.photos/id/1025/300/220" alt="">
-      <img src="https://picsum.photos/id/1027/300/220" alt="">
-      <img src="https://picsum.photos/id/1031/300/220" alt="">
-      <img src="https://picsum.photos/id/1033/300/220" alt="">
-      <img src="https://picsum.photos/id/1035/300/220" alt="">
-      <img src="https://picsum.photos/id/1037/300/220" alt="">
-      <img src="https://picsum.photos/id/1040/300/220" alt="">
-      <img src="https://picsum.photos/id/1042/300/220" alt="">
-      <img src="https://picsum.photos/id/1043/300/220" alt="">
-      <img src="https://picsum.photos/id/1044/300/220" alt="">
-      <img src="https://picsum.photos/id/1045/300/220" alt="">
-      <img src="https://picsum.photos/id/1047/300/220" alt="">
-      <img src="https://picsum.photos/id/1048/300/220" alt="">
-      <img src="https://picsum.photos/id/1049/300/220" alt="">
-      <img src="https://picsum.photos/id/1050/300/220" alt="">
+      h1 {
+        text-align: center;
+      }
+      form,
+      .file-load {
+        margin-bottom: 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        max-width: 400px;
+        margin: auto;
+      }
+      input,
+      button {
+        padding: 8px;
+        font-size: 16px;
+      }
+      .gallery {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+        justify-content: center;
+      }
+      .card {
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        overflow: hidden;
+        width: 250px;
+      }
+      .card img {
+        width: 100%;
+        height: 150px;
+        object-fit: cover;
+      }
+      .card p {
+        padding: 10px;
+        margin: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Generator Projektów z Obrazkami Lokalnie</h1>
+
+    <!-- Wczytanie JSON -->
+    <div class="file-load">
+      <label>Wczytaj plik JSON:</label>
+      <input type="file" id="jsonFile" accept=".json" />
     </div>
-  </div>
-  <div class="spacer">Koniec strony</div>
-  <script>
-    (function () {
-      const gallery = document.querySelector('.gallery');
-      const track = gallery.querySelector('.gallery-track');
-      let scrollX = 0;
-      let isLocking = false;
-      let isGalleryDone = false;
-      let isAutoScrolling = false;
 
-      function getScrollLength() {
-        return track.scrollWidth - gallery.clientWidth;
+    <!-- Formularz dodawania projektu -->
+    <form id="projectForm">
+      <input type="text" id="title" placeholder="Tytuł projektu" required />
+      <input
+        type="text"
+        id="description"
+        placeholder="Opis projektu"
+        required
+      />
+      <input type="file" id="imageFile" accept="image/*" required />
+      <button type="submit">Dodaj projekt</button>
+    </form>
+
+    <!-- Przyciski pobrania JSON -->
+    <div style="text-align: center; margin-bottom: 20px">
+      <button id="downloadBtn">Pobierz JSON z projektami</button>
+    </div>
+
+    <!-- Galeria projektów -->
+    <div class="gallery" id="gallery-container"></div>
+
+    <script>
+      let projects = []; // wszystkie projekty
+      const container = document.getElementById("gallery-container");
+      const form = document.getElementById("projectForm");
+      const jsonFileInput = document.getElementById("jsonFile");
+      const downloadBtn = document.getElementById("downloadBtn");
+
+      // Renderowanie galerii
+      function renderGallery() {
+        container.innerHTML = "";
+        projects.forEach((item) => {
+          const card = document.createElement("div");
+          card.className = "card";
+          card.innerHTML = `
+      <img src="${item.url}" alt="${item.title}">
+      <p><strong>${item.title}</strong> – ${item.description}</p>
+    `;
+          container.appendChild(card);
+        });
       }
 
-      function lockScroll() {
-        if (!isLocking) {
-          document.body.style.overflow = 'hidden';
-          window.addEventListener('wheel', onWheel, { passive: false });
-          window.addEventListener('keydown', onKeyDown, { passive: false });
-          isLocking = true;
-          console.log("Scroll pionowy zablokowany!");
-        }
-      }
-
-      function unlockScroll() {
-        if (isLocking) {
-          document.body.style.overflow = '';
-          window.removeEventListener('wheel', onWheel, { passive: false });
-          window.removeEventListener('keydown', onKeyDown, { passive: false });
-          isLocking = false;
-        }
-      }
-
-      function onWheel(e) {
-        if (!isLocking) return;
-        const delta = e.deltaY || e.deltaX;
-        const maxScroll = getScrollLength();
-
-        scrollX += delta;
-        scrollX = Math.max(0, Math.min(scrollX, maxScroll));
-        track.style.transform = `translateX(-${scrollX}px)`;
-
-        if (scrollX >= maxScroll && delta > 0) {
-          isGalleryDone = true;
-          unlockScroll();
-          window.scrollTo({ top: window.scrollY + 2, behavior: 'auto' });
-        } else if (scrollX < maxScroll) {
-          isGalleryDone = false;
-        }
-
-        if (scrollX <= 0 && delta < 0) {
-          unlockScroll();
-          window.scrollTo({ top: window.scrollY - 2, behavior: 'auto' });
-        }
-
-        e.preventDefault();
-      }
-
-      function onKeyDown(e) {
-        if (e.key === 'ArrowDown' || e.key === 'ArrowRight') {
-          onWheel({ deltaY: 40 });
-          e.preventDefault();
-        }
-        if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') {
-          onWheel({ deltaY: -40 });
-          e.preventDefault();
-        }
-      }
-
-      function onScroll() {
-        if (isAutoScrolling) return;
-        const rect = gallery.getBoundingClientRect();
-        const windowHeight = window.innerHeight;
-        const tolerance = 100; // szerokość "okna blokady" w px
-
-        // Jeśli dół galerii jest powyżej okna blokady – nie blokuj scrolla
-        if (rect.bottom > windowHeight + tolerance) {
-          unlockScroll();
-          return;
-        }
-        // Jeśli dół galerii jest poniżej okna blokady – nie blokuj scrolla
-        if (rect.bottom < windowHeight - tolerance) {
-          unlockScroll();
-          return;
-        }
-        // Jeśli dół galerii jest w zakresie okna blokady – blokuj scroll
-        if (
-          rect.bottom <= windowHeight + tolerance &&
-          rect.bottom >= windowHeight - tolerance &&
-          !isGalleryDone
-        ) {
-          isAutoScrolling = true;
-          window.scrollTo({
-            top: window.scrollY + rect.bottom - windowHeight,
-            behavior: 'auto'
-          });
-          setTimeout(() => {
-            lockScroll();
-            isAutoScrolling = false;
-          }, 10);
-        }
-      }
-
-      window.addEventListener('scroll', onScroll);
-      window.addEventListener('resize', () => {
-        scrollX = Math.max(0, Math.min(scrollX, getScrollLength()));
-        track.style.transform = `translateX(-${scrollX}px)`;
+      // Wczytywanie JSON
+      jsonFileInput.addEventListener("change", function (e) {
+        const file = e.target.files[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = function (evt) {
+          try {
+            const data = JSON.parse(evt.target.result);
+            if (Array.isArray(data)) {
+              projects = data;
+              renderGallery();
+            } else {
+              alert("Niepoprawny format JSON (oczekiwano tablicy)");
+            }
+          } catch (err) {
+            alert("Błąd parsowania JSON: " + err.message);
+          }
+        };
+        reader.readAsText(file);
       });
 
-      track.style.transform = 'translateX(0)';
-    })();
-  </script>
-</body>
+      // Dodawanie projektu z lokalnym obrazkiem
+      form.addEventListener("submit", function (e) {
+        e.preventDefault();
+        const title = document.getElementById("title").value;
+        const description = document.getElementById("description").value;
+        const imageFile = document.getElementById("imageFile").files[0];
+        if (!imageFile) return alert("Wybierz obrazek!");
+
+        const reader = new FileReader();
+        reader.onload = function (evt) {
+          const url = evt.target.result; // base64
+          const newProject = { title, description, url };
+          projects.push(newProject);
+          renderGallery();
+          form.reset();
+        };
+        reader.readAsDataURL(imageFile);
+      });
+
+      // Pobranie JSON
+      downloadBtn.addEventListener("click", function () {
+        const blob = new Blob([JSON.stringify(projects, null, 2)], {
+          type: "application/json",
+        });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = "projekty.json";
+        a.click();
+        URL.revokeObjectURL(url);
+      });
+    </script>
+  </body>
 </html>

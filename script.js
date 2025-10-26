@@ -212,3 +212,51 @@ document.querySelectorAll(".faq").forEach((faq) => {
 
   marquee.style.transform = "translateX(0)";
 })();
+
+const modal = document.getElementById("modal");
+const openBtn = document.getElementById("openBtn");
+const closeBtn = document.getElementById("closeBtn");
+
+openBtn.addEventListener("click", () => {
+  modal.style.display = "flex";
+  requestAnimationFrame(() => {
+    modal.classList.add("show");
+  });
+});
+
+closeBtn.addEventListener("click", () => {
+  modal.classList.remove("show");
+  setTimeout(() => {
+    modal.style.display = "none";
+  }, 800);
+});
+
+window.addEventListener("click", (e) => {
+  if (e.target === modal) {
+    modal.classList.remove("show");
+    setTimeout(() => {
+      modal.style.display = "none";
+    }, 800);
+  }
+});
+fetch("gallery.json")
+  .then((response) => response.json())
+  .then((data) => {
+    const container = document.getElementById("gallery-container");
+
+    data.forEach((item) => {
+      const card = document.createElement("section");
+      card.className = "card";
+
+      card.innerHTML = `
+        <div class="media">
+          <img src="${item.url}" alt="${item.title}">
+          <button class="btn bottom-right" type="button" onclick="alert('Klik!')">Kup teraz</button>
+        </div>
+        <p class="label">${item.title} – ${item.description}</p>
+      `;
+
+      container.appendChild(card);
+    });
+  })
+  .catch((error) => console.error("Błąd wczytywania JSON:", error));

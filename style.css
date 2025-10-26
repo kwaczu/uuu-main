@@ -134,6 +134,8 @@ header {
   --about-accent: #6ee7ff;
   --about-border: #232326;
   --about-radius: 20px;
+  --radius: 16px;
+  --shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
 }
 
 .about {
@@ -244,7 +246,8 @@ header {
   margin-top: clamp(28px, 4vw, 48px);
 }
 
-.about__button {
+.about__button,
+.btn-wiecej {
   display: inline-block;
   padding: 12px 18px;
   border-radius: 999px;
@@ -257,7 +260,8 @@ header {
   transition: filter 0.2s ease, transform 0.2s ease;
 }
 
-.about__button:hover {
+.about__button:hover,
+.btn-wiecej:hover {
   filter: brightness(1.05);
   transform: translateY(-4px);
   background: linear-gradient(90deg, #60a5fa, #22d3ee);
@@ -396,18 +400,16 @@ header {
   }
 }
 .marquee {
-  width: 100%;
   overflow: hidden;
 }
 
 .marquee-content {
   display: flex;
-  /* animation: scroll 10s linear infinite alternate; */ /* USUŃ lub zakomentuj */
-}
+  gap: 28px;
+  flex-wrap: nowrap; /* wszystkie w poziomie */
 
-.marquee-content img {
-  height: 60px; /* wysokość ikon */
-  margin: 30px;
+  /* przewijanie w poziomie jeśli za dużo */
+  /* animation: scroll 10s linear infinite alternate; */ /* USUŃ lub zakomentuj */
 }
 
 @keyframes scroll {
@@ -653,4 +655,172 @@ header {
 
 .nav-links1 a:hover {
   background-color: #b4b4b4;
+}
+.btn {
+  position: absolute;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.9rem 1.2rem;
+  border-radius: 999px;
+  border: none;
+  cursor: pointer;
+  font-weight: 700;
+  letter-spacing: 0.2px;
+  text-decoration: none;
+  font-size: 14px;
+  background: rgba(15, 23, 42, 0.7);
+  color: #fff;
+  backdrop-filter: blur(6px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+  transition: transform 0.15s ease, background 0.2s ease, box-shadow 0.2s ease;
+}
+.bottom-right {
+  inset: auto 16px 16px auto;
+}
+.media {
+  position: relative;
+  aspect-ratio: 16 / 9;
+}
+.card {
+  position: relative;
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  background: #0b1220;
+  flex: 0 0 400px;
+}
+.card img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+/* Utrzymanie proporcji 16:9 */
+.media {
+  position: relative;
+  aspect-ratio: 16 / 9;
+}
+.btn:hover {
+  transform: translateY(-1px);
+  background: rgba(15, 23, 42, 0.9);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
+}
+.btn:active {
+  transform: translateY(0);
+}
+.label {
+  margin: 8px 6px 0;
+  font-size: 14px;
+  opacity: 0.75;
+}
+
+.projekty {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  padding: 2rem;
+}
+
+.projekt {
+  background: #f3f3f3;
+  padding: 1rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.btn-wiecej {
+  display: block;
+  margin: 2rem auto;
+  padding: 0.8rem 1.6rem;
+  font-size: 1rem;
+
+  border: none;
+
+  cursor: pointer;
+  transition: transform 0.2s ease;
+  position: relative;
+  z-index: 10;
+}
+
+.btn-wiecej:active {
+  transform: scale(0.95);
+}
+
+/* Modal z animacją fluid */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-bg {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  background: rgba(0, 0, 0, 0.9);
+  border-radius: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  transition: transform 0.8s ease-out;
+  z-index: 1;
+}
+
+.modal.show .modal-bg {
+  width: 200vmax;
+  height: 200vmax;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+.modal-content {
+  position: relative;
+  background: white;
+  border-radius: 16px;
+  padding: 2rem;
+  max-width: 1000px;
+  width: 90%;
+  max-height: 90%;
+  overflow-y: auto;
+  z-index: 2;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease 0.3s, transform 0.6s ease 0.3s;
+}
+
+.modal.show .modal-content {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.modal-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: none;
+  border: none;
+  font-size: 2rem;
+  color: #333;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.modal-close:hover {
+  transform: rotate(90deg);
+}
+.logo {
+  height: 100%;
+}
+.logo img {
+  width: 100%; /* zajmuje całą szerokość diva */
+  height: 100%; /* zajmuje całą wysokość diva */
+  object-fit: cover; /* zachowuje proporcje, przycina nadmiar */
 }

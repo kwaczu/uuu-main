@@ -12,7 +12,7 @@
     <header>
       <nav class="navbar">
         <div class="logo">
-          <a href="#">novum</a>
+          <img src="f6.png" alt="" />
         </div>
         <div class="nav-links" id="nav-links">
           <a href="#xd">O nas</a>
@@ -94,31 +94,50 @@
               </p>
             </article>
           </div>
-          <!-- Pasek z technologiami -->
           <div class="tech">
             <h1>Silniki mojej pracy</h1>
             <div class="marquee">
-              <div class="marquee-content">
-                <img src="1.png" alt="HTML" />
-                <img src="3.png" alt="CSS" />
-                <img src="2.png" alt="JavaScript" />
-                <img src="1.png" alt="React" />
-                <img src="1.png" alt="Node.js" />
-                <img src="1.png" alt="HTML" />
-                <img src="3.png" alt="CSS" />
-                <img src="2.png" alt="JavaScript" />
-                <img src="1.png" alt="React" />
-                <img src="1.png" alt="Node.js" />
-                <img src="1.png" alt="HTML" />
-                <img src="1.png" alt="HTML" />
-                <img src="3.png" alt="CSS" />
-                <img src="2.png" alt="JavaScript" />
-                <img src="1.png" alt="React" />
-                <img src="1.png" alt="Node.js" />
-                <img src="css.png" alt="CSS" />
-                <img src="js.png" alt="JavaScript" />
-                <img src="react.png" alt="React" />
-                <img src="node.png" alt="Node.js" />
+              <div class="marquee-content" id="gallery-container">
+                <!-- Tutaj JS doda karty z JSON -->
+              </div>
+            </div>
+
+            <button class="btn-wiecej" id="openBtn">Więcej projektów</button>
+
+            <!-- Modal -->
+            <div class="modal" id="modal">
+              <div class="modal-bg"></div>
+              <div class="modal-content">
+                <button class="modal-close" id="closeBtn">&times;</button>
+                <h2>Więcej projektów</h2>
+                <div class="projekty">
+                  <section class="card">
+                    <div class="media">
+                      <img src="f.jpg" alt="Przykładowe tło" />
+                      <button
+                        class="btn bottom-right"
+                        type="button"
+                        onclick="alert('Klik!')"
+                      >
+                        Kup teraz
+                      </button>
+                    </div>
+                    <p class="label">2) Przycisk w prawym dolnym rogu</p>
+                  </section>
+                  <section class="card">
+                    <div class="media">
+                      <img src="f.jpg" alt="Przykładowe tło" />
+                      <button
+                        class="btn bottom-right"
+                        type="button"
+                        onclick="alert('Klik!')"
+                      >
+                        Kup teraz
+                      </button>
+                    </div>
+                    <p class="label">2) Przycisk w prawym dolnym rogu</p>
+                  </section>
+                </div>
               </div>
             </div>
           </div>
@@ -180,7 +199,7 @@
                       </div>
                       <div class="faq-content">
                         <p>
-                          To jest treść sekcji 2. Gdy się rozwinie, wypycha
+                          To jest treść sekcji 2. Gdy się rozwinie, wypychaS
                           następne bloki niżej, ale nagłówek zostaje w miejscu.
                         </p>
                       </div>
